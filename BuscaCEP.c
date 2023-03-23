@@ -1,3 +1,8 @@
+/* Carlos Henrique de Oliveira Pereira
+Rodrigo Marques Pau Ferro */
+
+
+
 #include <stdio.h>
 #include <string.h>
 
@@ -30,58 +35,45 @@ int main(int argc, char**argv)
 		return 1;
 	}
 
+
 	c = 0;
 	printf("Tamanho da Estrutura: %ld\n\n", sizeof(Endereco));
 	f = fopen("cep_ordenado.dat","rb");
 	
-	inicio =0;
+	
 
 	fseek(f,0,SEEK_END);
-	fim=ftell(f);
+    inicio =0;
+	fim=(ftell(f)/sizeof(Endereco))-1;
 	
-	
-
 
 	while(inicio <= fim){
 		c++;
+
 		meio = (inicio+fim)/2;
 		fseek(f,meio*sizeof(Endereco),SEEK_SET);
 		fread(&e,sizeof(Endereco),1,f);
+
+       
 		if(strncmp(argv[1],e.cep,8)==0)
 		{
 			printf("%.72s\n%.72s\n%.72s\n%.72s\n%.2s\n%.8s\n",e.logradouro,e.bairro,e.cidade,e.uf,e.sigla,e.cep);
 			break;
 			
 		}else{
-			
 			if(strncmp(argv[1],e.cep,8)<0){
-				//fseek(f,meio-1,SEEK_SET);
-				//fim = ftell(f);
+				
 				fim= meio-1;
 			}else{
-				//fseek(f,meio+1,SEEK_SET);
-				//inicio= ftell(f);
+				
 				inicio=meio+1;
 			}
-			fread(&e,sizeof(Endereco),1,f);
+			
 		}
 		
 	}
 	
-
-
-
-	/*qt = fread(&e,sizeof(Endereco),1,f);
-	while(qt > 0)
-	{
-		c++;
-		// argv[1] < e.cep  => strcmp(argv[1],e.cep) < 0
-		// argv[1] > e.cep  => strcmp(argv[1],e.cep) > 0
-		// argv[1] == e.cep  => strcmp(argv[1],e.cep) == 0
-		
-		qt = fread(&e,sizeof(Endereco),1,f);		
-	}*/
-	printf("Total Lido: %d\n", c);
+	
+	printf("Total de Buscas: %d\n", c);
 	fclose(f);
 }
-
