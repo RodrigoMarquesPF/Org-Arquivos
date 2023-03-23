@@ -22,7 +22,7 @@ int main(int argc, char**argv)
 	Endereco e;
 	int qt;
 	int c;
-	int inicio, fim, meio,ff;
+	int inicio, fim, meio;
 
 	if(argc != 2)
 	{
