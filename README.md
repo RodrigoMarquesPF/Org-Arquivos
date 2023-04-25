@@ -56,3 +56,5 @@ cd ti-2023-1-ti-2023-1_grupo_5.git
 
 npm install
 npm run dev
+
+json-server --watch mock/db.json
